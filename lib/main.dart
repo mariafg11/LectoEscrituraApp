@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyecto/screens/wrapper.dart';
-import 'package:proyecto/services/auth.dart';
-import 'package:proyecto/models/userCustom.dart';
+import 'package:LectoEscrituraApp/screens/wrapper.dart';
+import 'package:LectoEscrituraApp/services/auth.dart';
+import 'package:LectoEscrituraApp/models/userCustom.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

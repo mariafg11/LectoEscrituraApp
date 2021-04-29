@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "885136466882",
-    "project_id": "proyecto-7da23",
-    "storage_bucket": "proyecto-7da23.appspot.com"
+    "project_id": "LectoEscrituraApp-7da23",
+    "storage_bucket": "LectoEscrituraApp-7da23.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:885136466882:android:60f652ae8e54449aca2c5b",
         "android_client_info": {
-          "package_name": "com.example.proyecto"
+          "package_name": "com.example.LectoEscrituraApp"
         }
       },
       "oauth_client": [

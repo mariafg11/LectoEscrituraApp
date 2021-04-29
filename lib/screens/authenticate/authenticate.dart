@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/screens/authenticate/register.dart';
-import 'package:proyecto/screens/authenticate/signIn.dart';
-import 'package:proyecto/screens/home/home.dart';
-import 'package:proyecto/shared/loading.dart';
+import 'package:LectoEscrituraApp/screens/authenticate/register.dart';
+import 'package:LectoEscrituraApp/screens/authenticate/signIn.dart';
+import 'package:LectoEscrituraApp/screens/home/home.dart';
+import 'package:LectoEscrituraApp/shared/loading.dart';
 
 class Authenticate extends StatefulWidget {
   @override

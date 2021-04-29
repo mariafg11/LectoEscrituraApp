@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/shared/loading.dart';
+import 'package:LectoEscrituraApp/shared/loading.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;

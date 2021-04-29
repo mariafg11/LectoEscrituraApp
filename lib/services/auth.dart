@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:proyecto/models/userCustom.dart';
+import 'package:LectoEscrituraApp/models/userCustom.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
