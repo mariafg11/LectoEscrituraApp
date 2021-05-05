@@ -11,6 +11,19 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Registrate'),
+        backgroundColor: Colors.red[400],
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
   }
 }
