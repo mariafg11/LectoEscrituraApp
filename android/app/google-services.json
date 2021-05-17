@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "885136466882",
-    "project_id": "LectoEscrituraApp-7da23",
-    "storage_bucket": "LectoEscrituraApp-7da23.appspot.com"
+    "project_number": "463999919527",
+    "project_id": "lectoescrituraapp",
+    "storage_bucket": "lectoescrituraapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:885136466882:android:60f652ae8e54449aca2c5b",
+        "mobilesdk_app_id": "1:463999919527:android:580cd1e15565ebcdd38282",
         "android_client_info": {
           "package_name": "com.example.LectoEscrituraApp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "885136466882-jmmbc6ka957gdodugjb23c1if4h3fvtu.apps.googleusercontent.com",
+          "client_id": "463999919527-3hk0b76k502f8tl20r4akusm2ofma1ms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.LectoEscrituraApp",
+            "certificate_hash": "7dd0ad3046762081b1e994b18bb8b7a65a9d65d4"
+          }
+        },
+        {
+          "client_id": "463999919527-0pjr5jk6je1lt8hdqi0mel0c9gsmeqd1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCTY8UVpfaQbONTMvA2iiXVJPRX5LBIfbM"
+          "current_key": "AIzaSyAVo5K1AFdNF0amp21rl9IGOFtFjrpM6UE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "885136466882-jmmbc6ka957gdodugjb23c1if4h3fvtu.apps.googleusercontent.com",
+              "client_id": "463999919527-0pjr5jk6je1lt8hdqi0mel0c9gsmeqd1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

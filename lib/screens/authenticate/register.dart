@@ -24,53 +24,11 @@ class _RegisterState extends State<Register> {
     'assets/avatar6.png',
   ];
 
-  // final List<Widget> imageSliders = imgList
-  //     .map((item) => Container(
-  //           child: Container(
-  //             margin: EdgeInsets.all(5.0),
-  //             child: ClipRRect(
-  //                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
-  //                 child: Stack(
-  //                   children: <Widget>[
-  //                     Image.network(item, fit: BoxFit.cover, width: 1000.0),
-  //                     Positioned(
-  //                       bottom: 0.0,
-  //                       left: 0.0,
-  //                       right: 0.0,
-  //                       child: Container(
-  //                         decoration: BoxDecoration(
-  //                           gradient: LinearGradient(
-  //                             colors: [
-  //                               Color.fromARGB(200, 0, 0, 0),
-  //                               Color.fromARGB(0, 0, 0, 0)
-  //                             ],
-  //                             begin: Alignment.bottomCenter,
-  //                             end: Alignment.topCenter,
-  //                           ),
-  //                         ),
-  //                         padding: EdgeInsets.symmetric(
-  //                             vertical: 10.0, horizontal: 20.0),
-  //                         child: Text(
-  //                           'No. ${imgList.indexOf(item)} image',
-  //                           style: TextStyle(
-  //                             color: Colors.white,
-  //                             fontSize: 20.0,
-  //                             fontWeight: FontWeight.bold,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 )),
-  //           ),
-  //         ))
-  //     .toList();
-
   final CarouselController _controller = CarouselController();
 
   // text field
   String email = "";
-  String password = "";
+  String password = 'assets/avatar1.png';
   String error = "";
 
   @override
@@ -97,8 +55,15 @@ class _RegisterState extends State<Register> {
                                       fit: BoxFit.cover)),
                             ))
                         .toList(),
-                    options:
-                        CarouselOptions(enlargeCenterPage: true, height: 200),
+                    options: CarouselOptions(
+                      enlargeCenterPage: true,
+                      height: 200,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          password = imgList[index];
+                        });
+                      },
+                    ),
                     carouselController: _controller,
                   ),
                   Row(
@@ -122,26 +87,17 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
-                  // TextFormField(
-                  //   decoration: InputDecoration(hintText: "Email"),
-                  //   validator: (val) => val.isEmpty ? "Enter an email" : null,
-                  //   onChanged: (val) {
-                  //     setState(() => email = val);
-                  //   },
-                  // ),
                   SizedBox(height: 20.0),
                   TextFormField(
                     decoration: InputDecoration(hintText: "Nombre"),
-                    validator: (val) =>
-                        val.length < 6 ? "Enter a password 6+ char long" : null,
-                    obscureText: true,
+                    validator: (val) => val.isEmpty ? "Enter an Name" : null,
                     onChanged: (val) {
-                      setState(() => password = val);
+                      setState(() => email = val + '@mail.com');
                     },
                   ),
                   SizedBox(height: 20.0),
                   RaisedButton(
-                      color: Colors.pink,
+                      color: Colors.blue[200],
                       child: Text(
                         "Register ",
                         style: TextStyle(color: Colors.white),
