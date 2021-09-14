@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 
@@ -40,11 +41,13 @@ class AuthService {
   }
 
   //register In custom
-  Future register(String email, String password) async {
+  Future register(String email, String password, int age) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
+      //Create new userData in database
+      await DatabaseService(uid: user.uid).updateUserData(password, email, age);
       //transformar el nombre en  email y dirección de la imagen en la password
       return _userFromFirebaseUser(user);
     } catch (e) {

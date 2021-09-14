@@ -1,8 +1,10 @@
+import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:flutter/material.dart';
 import 'package:LectoEscrituraApp/screens/authenticate/register.dart';
 import 'package:LectoEscrituraApp/screens/authenticate/signIn.dart';
 import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
+import 'package:provider/provider.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserCustom>(context);
     return loading
         ? Loading()
         : Scaffold(
@@ -40,10 +43,17 @@ class _AuthenticateState extends State<Authenticate> {
                     shape: StadiumBorder(),
                     minWidth: 270.0,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      if (user == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      }
                     },
                     label: Text(
                       'Jugar',

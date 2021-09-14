@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = 'assets/avatar1.png';
   String error = "";
+  int age = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,16 @@ class _RegisterState extends State<Register> {
                     },
                   ),
                   SizedBox(height: 20.0),
+
+                  Text('Edad'),
+                  Slider(
+                    value: age.toDouble(),
+                    min: 0.0,
+                    max: 10.0,
+                    label: age.toString(),
+                    divisions: 10,
+                    onChanged: (val) => setState(() => age = val.round()),
+                  ),
                   RaisedButton(
                       color: Colors.blue[200],
                       child: Text(
@@ -106,15 +118,20 @@ class _RegisterState extends State<Register> {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
                           dynamic result =
-                              await _auth.register(email, password);
+                              await _auth.register(email, password, age);
                           if (result == null) {
                             setState(() {
                               error = "enter a valid email";
                               loading = false;
                             });
                           }
+                        } else {
+                          loading = false;
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
                         }
                       }),
+
                   SizedBox(height: 20.0),
                   Text(
                     error,
