@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,8 @@ class Home extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DragnDropGame()));
           },
           child: Text('Go back!'),
         ),

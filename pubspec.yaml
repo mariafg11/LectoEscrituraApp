@@ -34,6 +34,7 @@ dependencies:
   provider: ^5.0.0
   firebase_core :
   carousel_slider: ^3.0.0
+  # audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
