@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => DragnDropGame()));
           },
-          child: Text('Go back!'),
+          child: Text('Juego 1'),
         ),
       ),
     );

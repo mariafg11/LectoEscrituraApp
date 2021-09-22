@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
-// import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class DragnDropGame extends StatefulWidget {
@@ -18,21 +18,25 @@ class _DragnDropGameState extends State<DragnDropGame> {
   Map _options = new Map();
   rPeacker peaker = new rPeacker();
   int seed = 0;
+  AudioPlayer audioPlayer = AudioPlayer();
 
   Widget _buildDragTarget(emoji) {
     return DragTarget<String>(
       builder: (BuildContext context, List<String> incoming, List rejected) {
         if (score[emoji] == true) {
           return Container(
-            color: Colors.white,
-            child: Text('Correcto'),
+            color: Colors.transparent,
+            child: Text(
+              'Correcto',
+              style: TextStyle(fontSize: 35),
+            ),
             alignment: Alignment.center,
             height: 80,
             width: 200,
           );
         } else {
           return Container(
-            child: Text(_options[emoji]),
+            child: Emoji(emoji: _options[emoji]),
             height: 80,
             width: 200,
           );
@@ -41,7 +45,9 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
+          // audioPlayer.setUrl('/correcto.mp3');
           score[emoji] = true;
+          // audioPlayer.play('/correcto.mp3');
         });
       },
       onLeave: (data) {},
@@ -54,7 +60,6 @@ class _DragnDropGameState extends State<DragnDropGame> {
     _options = peaker.randomPeaker(6);
   }
 
-  // AudioCache _audioController = AudioCache();
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -76,22 +81,36 @@ class _DragnDropGameState extends State<DragnDropGame> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
+            //first column the one which is dragable(the words)
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: _options.keys.map((emoji) {
               return Draggable<String>(
                 data: emoji,
-                child: Emoji(emoji: score[emoji] == true ? '✅' : emoji),
-                feedback: Emoji(
-                  emoji: emoji,
+                child: Text(
+                  score[emoji] == true ? '✅' : emoji,
+                  style: TextStyle(fontSize: 40),
                 ),
-                childWhenDragging: Emoji(emoji: '⚪️'),
+                feedback: Text(
+                  '$emoji',
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Colors.black,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.normal,
+                      decoration: TextDecoration.none),
+                ),
+                childWhenDragging: Text(
+                  '⚪️',
+                  style: TextStyle(fontSize: 40),
+                ),
               );
             }).toList(),
           ),
           Column(
+            //second column (the emoji)
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children:
                 _options.keys.map((emoji) => _buildDragTarget(emoji)).toList()
                   ..shuffle(Random(seed)),
