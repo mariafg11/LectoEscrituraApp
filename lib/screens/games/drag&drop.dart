@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
   Map _options = new Map();
   rPeacker peaker = new rPeacker();
   int seed = 0;
-  AudioPlayer audioPlayer = AudioPlayer();
+  AudioCache audioPlayer = AudioCache();
 
   Widget _buildDragTarget(emoji) {
     return DragTarget<String>(
@@ -45,12 +45,14 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
-          // audioPlayer.setUrl('/correcto.mp3');
+          // audioPlayer.setUrl('assets/correcto.mp3');
           score[emoji] = true;
-          // audioPlayer.play('/correcto.mp3');
+          audioPlayer.play('correcto.mp3');
         });
       },
-      onLeave: (data) {},
+      onLeave: (data) {
+        // audioPlayer.play('wrong.mp3');
+      },
     );
   }
 
@@ -91,6 +93,9 @@ class _DragnDropGameState extends State<DragnDropGame> {
                   score[emoji] == true ? '✅' : emoji,
                   style: TextStyle(fontSize: 40),
                 ),
+                onDragStarted: () {
+                  audioPlayer.play('$emoji.mp3');
+                },
                 feedback: Text(
                   '$emoji',
                   style: TextStyle(
