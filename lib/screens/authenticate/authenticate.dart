@@ -44,6 +44,7 @@ class _AuthenticateState extends State<Authenticate> {
                     minWidth: 270.0,
                     onPressed: () {
                       if (user == null) {
+                        loading = true;
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SignIn()),

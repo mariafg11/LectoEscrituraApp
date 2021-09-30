@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,10 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     } else {
+      if (Navigator.canPop(context)) {
+        Navigator.maybePop(
+            context, MaterialPageRoute(builder: (context) => Loading()));
+      }
       return Home();
     }
   }

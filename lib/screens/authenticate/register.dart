@@ -126,9 +126,8 @@ class _RegisterState extends State<Register> {
                             });
                           }
                         } else {
-                          loading = false;
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                          loading = true;
+                          Navigator.popAndPushNamed(context, "/home");
                         }
                       }),
 

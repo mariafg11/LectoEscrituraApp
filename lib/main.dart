@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialData: u,
       value: AuthService().user,
       child: MaterialApp(
+        routes: {'/home': (context) => Home()},
         home: Wrapper(),
       ),
     );
