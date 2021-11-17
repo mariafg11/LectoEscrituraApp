@@ -1,3 +1,4 @@
+import 'package:LectoEscrituraApp/services/gamesFiltered.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class Wrapper extends StatelessWidget {
         Navigator.maybePop(
             context, MaterialPageRoute(builder: (context) => Loading()));
       }
-      return Home();
+      return GamesFilter(uid: user.uid);
     }
   }
 }

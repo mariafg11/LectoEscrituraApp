@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key key}) : super(key: key);
+class AcSettings extends StatefulWidget {
+  const AcSettings({Key key}) : super(key: key);
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _AcSettingsState createState() => _AcSettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _AcSettingsState extends State<AcSettings> {
   double fontSize = 14;
   bool daltonicMode = false;
   @override
