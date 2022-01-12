@@ -1,6 +1,7 @@
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
+import 'package:LectoEscrituraApp/screens/games/tableVocals.dart';
 import 'package:LectoEscrituraApp/screens/home/acSettings.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
@@ -80,7 +81,7 @@ class Home extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DragnDropGame()));
+                      MaterialPageRoute(builder: (context) => TableVocals()));
                 },
                 icon: Icon(Icons.play_arrow),
                 label: Text('JUGAR'),

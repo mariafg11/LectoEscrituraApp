@@ -8,7 +8,6 @@ class rPeacker {
     'cama': '🛌🏿',
     'perro': '🐶',
     'elefante': '🐘',
-    'sol': '🌞',
     'manzana': '🍎',
     'pera': '🍐',
     'piña': '🍍',
@@ -16,7 +15,14 @@ class rPeacker {
     'zanahoria': '🥕',
     'helado': '🍦',
     'estrella': '⭐',
-    'pez': '🐠',
+    'mano': '🤚',
+    'ojo': '👁️',
+    'diente': '🦷',
+    'pie': '🦶',
+    'boca': '👄',
+    'gato': '🐈',
+    'araña': '🕷️',
+    'sandía': '🍉',
   };
 
   rPeacker() {
