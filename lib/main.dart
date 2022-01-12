@@ -1,3 +1,5 @@
+import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
+import 'package:LectoEscrituraApp/screens/games/tablevocals.dart';
 import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +24,11 @@ class MyApp extends StatelessWidget {
       initialData: u,
       value: AuthService().user,
       child: MaterialApp(
-        routes: {'/home': (context) => Home()},
+        routes: {
+          '/home': (context) => Home(),
+          '/drag&drop': (context) => DragnDropGame(),
+          '/tableVocals': (context) => TableVocals(),
+        },
         home: Wrapper(),
       ),
     );

@@ -59,49 +59,53 @@ class Home extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Container(
-          height: height - 180,
-          //mainAxisSize: MainAxisSize.min,
-          //mainAxisAlignment: MainAxisAlignment.center,
-          child:
-              //gif animado con ejemplo
-              Column(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+
+              //mainAxisSize: MainAxisSize.min,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              child:
+                  //gif animado con ejemplo
+                  Column(
             children: [
-              Image(image: AssetImage('assets/juego1.gif')),
-              SizedBox(
-                width: 20,
-                height: 20,
-              ),
-              //explicación y boton
-              Text(games.elementAt(0).description),
-              SizedBox(
-                width: 20,
-                height: 20,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TableVocals()));
-                },
-                icon: Icon(Icons.play_arrow),
-                label: Text('JUGAR'),
-              ),
+              Expanded(
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: games.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String page = games.elementAt(index).title;
+                        return Card(
+                          child: InkWell(
+                            child: Column(
+                              children: [
+                                Image(
+                                    height: 125,
+                                    width: 125,
+                                    image:
+                                        AssetImage('assets/' + page + '.gif')),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    games.elementAt(index).description,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/' + page);
+                            },
+                          ),
+                        );
+                      })),
             ],
-          ),
+          )),
         ),
       ),
     );
-
-    //intento 1 no devuelve nada
-    // CollectionReference users = db.collection('userData');
-    // //DEvuelve null por algun motivo que desconozco
-    // var userAge = FirebaseFirestore.instance
-    //     .collection('userData')
-    //     .where('uid', isEqualTo: user.uid)
-    //     .get()
-    //     .then((snapshot) => snapshot.docs);
-    // FirebaseFirestore.instance
-    //     .collection('game')
-    //     .where('age', isLessThanOrEqualTo: userAge);
   }
 }
