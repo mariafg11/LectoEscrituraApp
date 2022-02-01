@@ -1,13 +1,17 @@
 import 'dart:math';
+import 'package:LectoEscrituraApp/models/userCustom.dart';
+import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DragnDropGame extends StatefulWidget {
+  final String gameId;
   @override
-  const DragnDropGame({Key key}) : super(key: key);
+  const DragnDropGame({Key key, this.gameId}) : super(key: key);
 
   _DragnDropGameState createState() => _DragnDropGameState();
 }
@@ -21,6 +25,9 @@ class _DragnDropGameState extends State<DragnDropGame> {
   AudioCache audioPlayer = AudioCache();
 
   Widget _buildDragTarget(emoji) {
+    final user = Provider.of<UserCustom>(context);
+    DatabaseService db = DatabaseService(uid: user.uid);
+    final String gameId = ModalRoute.of(context).settings.arguments as String;
     return DragTarget<String>(
       builder: (BuildContext context, List<String> incoming, List rejected) {
         if (score[emoji] == true) {
@@ -45,12 +52,16 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
+          db.updateProgress(gameId, score.length);
+
           // audioPlayer.setUrl('assets/correcto.mp3');
           score[emoji] = true;
           audioPlayer.play('correcto.mp3');
         });
       },
       onLeave: (data) {
+        db.updateProgress(gameId, score.length);
+
         // audioPlayer.play('wrong.mp3');
       },
     );

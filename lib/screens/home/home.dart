@@ -65,9 +65,7 @@ class Home extends StatelessWidget {
 
               //mainAxisSize: MainAxisSize.min,
               //mainAxisAlignment: MainAxisAlignment.center,
-              child:
-                  //gif animado con ejemplo
-                  Column(
+              child: Column(
             children: [
               Expanded(
                   child: GridView.builder(
@@ -97,7 +95,8 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             onTap: () {
-                              Navigator.pushNamed(context, '/' + page);
+                              Navigator.pushNamed(context, '/' + page,
+                                  arguments: games.elementAt(index).uid);
                             },
                           ),
                         );

@@ -1,11 +1,16 @@
 import 'dart:developer';
 
+import 'package:LectoEscrituraApp/models/userCustom.dart';
+import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TableVocals extends StatefulWidget {
-  const TableVocals({Key key}) : super(key: key);
+  const TableVocals({
+    Key key,
+  }) : super(key: key);
 
   @override
   _TableVocalsState createState() => _TableVocalsState();
@@ -24,11 +29,14 @@ class _TableVocalsState extends State<TableVocals> {
   Color colorCard = Colors.orange[50];
   String error = '';
   int seed = 0;
+
   void initState() {
     super.initState();
     _options = peaker.randomPeaker(6);
     _emojis = _options.values.toList();
     _grid = _createlist();
+
+    score = 0;
   }
 
   List<String> _createlist() {
@@ -147,6 +155,10 @@ class _TableVocalsState extends State<TableVocals> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserCustom>(context);
+    DatabaseService db = DatabaseService(uid: user.uid);
+    final String gameId = ModalRoute.of(context).settings.arguments as String;
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Puntos  $score/5'),
@@ -226,6 +238,7 @@ class _TableVocalsState extends State<TableVocals> {
                   } else {
                     score = 5 - score;
                   }
+                  db.updateProgress(gameId, score);
                 });
               },
               icon: Icon(Icons.check_circle),
