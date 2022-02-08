@@ -3,7 +3,13 @@ class Progress {
   final String gameId;
   final String userId;
   final int repetitions;
-  final int score;
+  final List score;
 
-  Progress(this.uid, this.gameId, this.userId, this.repetitions, this.score);
+  Progress({
+    this.uid,
+    this.gameId,
+    this.userId,
+    this.repetitions,
+    this.score,
+  });
 }

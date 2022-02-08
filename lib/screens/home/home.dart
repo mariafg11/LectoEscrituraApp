@@ -3,6 +3,7 @@ import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
 import 'package:LectoEscrituraApp/screens/games/tableVocals.dart';
 import 'package:LectoEscrituraApp/screens/home/acSettings.dart';
+import 'package:LectoEscrituraApp/screens/home/parentsArea.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
@@ -45,9 +46,12 @@ class Home extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.bar_chart),
-              title: Text('Area Padres'),
-            ),
+                leading: Icon(Icons.bar_chart),
+                title: Text('Area Padres'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ParentsArea()));
+                }),
             ListTile(
               onTap: () async {
                 await _auth.signOut();

@@ -22,6 +22,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
   Map _options = new Map();
   rPeacker peaker = new rPeacker();
   int seed = 0;
+  bool finalScore = false;
   AudioCache audioPlayer = AudioCache();
 
   Widget _buildDragTarget(emoji) {
@@ -52,15 +53,16 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
-          db.updateProgress(gameId, score.length);
-
+          if (score.length == 5) {
+            db.updateProgress(gameId, score.length + 1);
+          }
           // audioPlayer.setUrl('assets/correcto.mp3');
           score[emoji] = true;
           audioPlayer.play('correcto.mp3');
         });
       },
       onLeave: (data) {
-        db.updateProgress(gameId, score.length);
+        //db.updateProgress(gameId, score.length);
 
         // audioPlayer.play('wrong.mp3');
       },
@@ -100,12 +102,14 @@ class _DragnDropGameState extends State<DragnDropGame> {
             children: _options.keys.map((emoji) {
               return Draggable<String>(
                 data: emoji,
-                child: Text(
-                  score[emoji] == true ? '✅' : emoji,
-                  style: TextStyle(fontSize: 40),
+                child: Semantics(
+                  child: Text(
+                    score[emoji] == true ? '✅' : emoji,
+                    style: TextStyle(fontSize: 40),
+                  ),
                 ),
                 onDragStarted: () {
-                  audioPlayer.play('$emoji.mp3');
+                  //audioPlayer.play('$emoji.mp3');
                 },
                 feedback: Text(
                   '$emoji',

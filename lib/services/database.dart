@@ -1,15 +1,12 @@
 import 'dart:developer';
-
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
-import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:LectoEscrituraApp/models/userData.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
 
 class DatabaseService {
   final String uid;
+  var uuid = Uuid();
   DatabaseService({this.uid});
 
   //collection reference
@@ -25,13 +22,16 @@ class DatabaseService {
     int score,
   ) async {
     QuerySnapshot qShot = await progressCollection
-        .where('userId', isEqualTo: uid)
         .where('gameId', isEqualTo: gameId)
+        .where('userId', isEqualTo: uid)
         .get();
     if (qShot.docs.isNotEmpty) {
       QueryDocumentSnapshot doc = qShot.docs.first;
+      log(doc.data.toString());
+
       int rep = doc.get('repetitions') + 1;
-      int sc = doc.get('score') + score;
+      List sc = doc.get('score');
+      sc.add(score);
       return await progressCollection.doc(doc.id).set({
         'userId': uid,
         'gameId': gameId,
@@ -39,7 +39,7 @@ class DatabaseService {
         'repetitions': rep,
       });
     } else {
-      return await progressCollection.doc(Uuid.NAMESPACE_DNS).set({
+      return await progressCollection.doc(uuid.v1()).set({
         'userId': uid,
         'gameId': gameId,
         'score': score,
@@ -54,6 +54,21 @@ class DatabaseService {
       'name': name,
       'age': age,
     });
+  }
+
+  Future<List<Progress>> getProgress() async {
+    QuerySnapshot qShot = await FirebaseFirestore.instance
+        .collection('progress')
+        .where('userId', isEqualTo: uid)
+        .get();
+    return qShot.docs
+        .map((doc) => Progress(
+            uid: doc.id,
+            gameId: doc.data()['gameId'],
+            userId: uid,
+            repetitions: doc.data()['repetitions'],
+            score: doc.data()['score']))
+        .toList();
   }
 
   Future<int> getUserData() async {
@@ -88,10 +103,4 @@ class DatabaseService {
             ))
         .toList();
   }
-
-  // Progress queryToProgress(QueryDocumentSnapshot qshot) {
-  //   log(qshot.data().toString());
-  //   String line =  qshot.data().toString();
-  //   Progress result =Progress(Uuid.NAMESPACE_DNS, qshot.data().gameId, userId, repetitions, score)
-  // }
 }
