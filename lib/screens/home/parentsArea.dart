@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:LectoEscrituraApp/models/nGames.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ParentsArea extends StatefulWidget {
   const ParentsArea({Key key}) : super(key: key);
@@ -13,14 +17,22 @@ class ParentsArea extends StatefulWidget {
 }
 
 class _ParentsAreaState extends State<ParentsArea> {
+  Future<List<Progress>> progress;
+  Future<List<NGames>> nGames;
+  List<NGames> data = [];
   @override
-  Widget build(BuildContext context) {
+  Future waitFromBd() {
     final user = Provider.of<UserCustom>(context);
     DatabaseService db = DatabaseService(uid: user.uid);
+    progress = db.getProgress();
 
-    return FutureBuilder<List<Progress>>(
-      future: db.getProgress(),
-      builder: (BuildContext context, AsyncSnapshot<List<Progress>> snapshot) {
+    return db.ntipeGames();
+  }
+
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<NGames>>(
+      future: waitFromBd(),
+      builder: (BuildContext context, AsyncSnapshot<List<NGames>> snapshot) {
         if (snapshot.hasError) {
           return Text("Something went wrong");
         }
@@ -29,14 +41,59 @@ class _ParentsAreaState extends State<ParentsArea> {
           return Text("Document does not exist");
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          List<Progress> data = snapshot.data;
+          data = snapshot.data;
+          // if (nGames != null) {
+          //   log(data.isEmpty.toString());
+
+          //   nGames.then((value) {
+          //     if (value != null)
+          //       value.forEach((item) {
+          //         if (item != null) {
+          //           data.add(item);
+          //           log(data.isEmpty.toString());
+          //         }
+          //       });
+          //   });
+          // }
+          log(data.isEmpty.toString());
+
+          // List<Progress> data = snapshot.data;
+          // Progress game = data.first;
+
           return Scaffold(
-            appBar: AppBar(
-              title: Text("bienvenido"),
-              backgroundColor: Colors.red[400],
-            ),
-            body: Text('Aqui van los graficos'),
-          );
+              appBar: AppBar(
+                title: Text("Area de Padres"),
+                backgroundColor: Colors.red[400],
+              ),
+              body: Column(children: [
+                //Initialize the chart widget
+                SfCircularChart(
+
+                    // Chart title
+                    title: ChartTitle(text: 'Progreso por tipo de juego'),
+                    // Enable legend
+                    legend: Legend(
+                        isVisible: true,
+                        orientation: LegendItemOrientation.vertical,
+                        position: LegendPosition.bottom,
+                        overflowMode: LegendItemOverflowMode.wrap),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <CircularSeries<NGames, String>>[
+                      RadialBarSeries<NGames, String>(
+                          dataSource: data,
+                          xValueMapper: (NGames tipeProgress, _) =>
+                              tipeProgress.tipeGame,
+                          yValueMapper: (NGames tipeProgress, _) =>
+                              tipeProgress.nTipeGames,
+                          name: 'Progreso',
+                          maximumValue: 10,
+                          innerRadius: '10',
+                          radius: '80',
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: true))
+                    ]),
+              ]));
         }
 
         return Loading();

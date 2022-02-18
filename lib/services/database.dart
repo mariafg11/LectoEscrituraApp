@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:LectoEscrituraApp/models/game.dart';
+import 'package:LectoEscrituraApp/models/nGames.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
@@ -16,6 +17,33 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('game');
   final CollectionReference progressCollection =
       FirebaseFirestore.instance.collection('progress');
+
+  Future<List<NGames>> ntipeGames() async {
+    List<NGames> result = [];
+    NGames item;
+    List<String> tipes = [
+      'Leer-Palabra',
+      'Leer-Letra',
+      'Leer-Silaba',
+      'Escribir-Letra',
+      'Escribir-Silaba',
+      'Escribir-Palabra'
+    ];
+    int size = 0;
+    for (var i in tipes) {
+      QuerySnapshot qshot =
+          await gameCollection.where('tipe', isEqualTo: i).get();
+      if (qshot != null) {
+        size = qshot.size;
+      }
+      item = NGames(i, size);
+      if (item != null) {
+        result.add(item);
+      }
+    }
+    log(result.toString());
+    return result;
+  }
 
   Future updateProgress(
     String gameId,

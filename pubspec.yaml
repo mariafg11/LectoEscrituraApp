@@ -36,6 +36,7 @@ dependencies:
   carousel_slider: ^3.0.0
   audioplayers: ^0.16.0
   uuid: ^2.2.2
+  syncfusion_flutter_charts: ^19.4.52
 
 dev_dependencies:
   flutter_test:
