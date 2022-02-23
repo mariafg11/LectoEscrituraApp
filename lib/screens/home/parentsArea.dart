@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:LectoEscrituraApp/models/nGames.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
+import 'package:LectoEscrituraApp/screens/home/gameCharts.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,14 @@ class ParentsArea extends StatefulWidget {
 }
 
 class _ParentsAreaState extends State<ParentsArea> {
-  Future<List<Progress>> progress;
+  List<Progress> progress;
   Future<List<NGames>> nGames;
   List<NGames> data = [];
   @override
-  Future waitFromBd() {
+  Future<List<NGames>> waitFromBd() async {
     final user = Provider.of<UserCustom>(context);
     DatabaseService db = DatabaseService(uid: user.uid);
-    progress = db.getProgress();
+    progress = await db.getProgress();
 
     return db.ntipeGames();
   }
@@ -42,23 +43,6 @@ class _ParentsAreaState extends State<ParentsArea> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           data = snapshot.data;
-          // if (nGames != null) {
-          //   log(data.isEmpty.toString());
-
-          //   nGames.then((value) {
-          //     if (value != null)
-          //       value.forEach((item) {
-          //         if (item != null) {
-          //           data.add(item);
-          //           log(data.isEmpty.toString());
-          //         }
-          //       });
-          //   });
-          // }
-          log(data.isEmpty.toString());
-
-          // List<Progress> data = snapshot.data;
-          // Progress game = data.first;
 
           return Scaffold(
               appBar: AppBar(
@@ -90,8 +74,21 @@ class _ParentsAreaState extends State<ParentsArea> {
                           maximumValue: 10,
                           innerRadius: '10',
                           radius: '80',
+                          onPointTap: (pointInteractionDetails) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GameCharts(
+                                          games: data
+                                              .elementAt(pointInteractionDetails
+                                                  .pointIndex)
+                                              .games,
+                                          progress: progress,
+                                        )));
+                          },
                           // Enable data label
-                          dataLabelSettings: DataLabelSettings(isVisible: true))
+                          dataLabelSettings:
+                              DataLabelSettings(isVisible: true)),
                     ]),
               ]));
         }

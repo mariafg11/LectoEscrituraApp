@@ -21,6 +21,7 @@ class DatabaseService {
   Future<List<NGames>> ntipeGames() async {
     List<NGames> result = [];
     NGames item;
+
     List<String> tipes = [
       'Leer-Palabra',
       'Leer-Letra',
@@ -29,14 +30,31 @@ class DatabaseService {
       'Escribir-Silaba',
       'Escribir-Palabra'
     ];
+    List<Game> gamesProgress = [];
+
+    List<Progress> progressList = await getProgress();
+    for (var item in progressList) {
+      DocumentSnapshot qShot = await gameCollection.doc(item.gameId).get();
+      var gameDoc = qShot.data().entries;
+      Game gamesCasted = Game(
+        uid: item.gameId,
+        title: gameDoc.elementAt(2).value,
+        tipe: gameDoc.elementAt(1).value,
+        description: gameDoc.first.value,
+        age: gameDoc.last.value,
+      );
+
+      gamesProgress.add(gamesCasted);
+    }
+
     int size = 0;
     for (var i in tipes) {
-      QuerySnapshot qshot =
-          await gameCollection.where('tipe', isEqualTo: i).get();
-      if (qshot != null) {
-        size = qshot.size;
+      List gameList = gamesProgress.where((x) => x.tipe == i).toList();
+      //.where('tipe', isEqualTo: i).get();
+      if (gameList != null) {
+        size = gameList.length;
       }
-      item = NGames(i, size);
+      item = NGames(i, size, gameList);
       if (item != null) {
         result.add(item);
       }
@@ -58,7 +76,7 @@ class DatabaseService {
       log(doc.data.toString());
 
       int rep = doc.get('repetitions') + 1;
-      List sc = doc.get('score');
+      List<int> sc = doc.get('score');
       sc.add(score);
       return await progressCollection.doc(doc.id).set({
         'userId': uid,
