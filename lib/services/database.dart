@@ -76,7 +76,7 @@ class DatabaseService {
       log(doc.data.toString());
 
       int rep = doc.get('repetitions') + 1;
-      List<int> sc = doc.get('score');
+      List sc = doc.get('score');
       sc.add(score);
       return await progressCollection.doc(doc.id).set({
         'userId': uid,
