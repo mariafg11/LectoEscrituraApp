@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
-import 'package:audioplayers/audio_cache.dart';
+import 'package:LectoEscrituraApp/shared/help.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -163,6 +165,19 @@ class _TableVocalsState extends State<TableVocals> {
         appBar: AppBar(
           title: Text('Puntos  $score/5'),
           backgroundColor: Colors.red[400],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Help(
+                          gameId: gameId,
+                        );
+                      });
+                },
+                icon: Icon(Icons.help))
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh),

@@ -3,15 +3,14 @@ import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
-import 'package:audioplayers/audio_cache.dart';
+import 'package:LectoEscrituraApp/shared/help.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DragnDropGame extends StatefulWidget {
-  final String gameId;
   @override
-  const DragnDropGame({Key key, this.gameId}) : super(key: key);
+  const DragnDropGame({Key key}) : super(key: key);
 
   _DragnDropGameState createState() => _DragnDropGameState();
 }
@@ -76,10 +75,25 @@ class _DragnDropGameState extends State<DragnDropGame> {
   }
 
   Widget build(BuildContext context) {
+    final String gameId = ModalRoute.of(context).settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Puntos ${score.length}/6'),
         backgroundColor: Colors.red[400],
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Help(
+                        gameId: gameId,
+                      );
+                    });
+              },
+              icon: Icon(Icons.help))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),

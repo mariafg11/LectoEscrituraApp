@@ -35,13 +35,13 @@ class DatabaseService {
     List<Progress> progressList = await getProgress();
     for (var item in progressList) {
       DocumentSnapshot qShot = await gameCollection.doc(item.gameId).get();
-      var gameDoc = qShot.data().entries;
+      var gameDoc = qShot.data();
       Game gamesCasted = Game(
         uid: item.gameId,
-        title: gameDoc.elementAt(2).value,
-        tipe: gameDoc.elementAt(1).value,
-        description: gameDoc.first.value,
-        age: gameDoc.last.value,
+        title: qShot.get('title'),
+        tipe: qShot.get('tipe'),
+        description: qShot.get('description'),
+        age: qShot.get('age'),
       );
 
       gamesProgress.add(gamesCasted);
@@ -110,11 +110,27 @@ class DatabaseService {
     return qShot.docs
         .map((doc) => Progress(
             uid: doc.id,
-            gameId: doc.data()['gameId'],
+            gameId: doc.get('gameId'),
             userId: uid,
-            repetitions: doc.data()['repetitions'],
-            score: doc.data()['score']))
+            repetitions: doc.get('repetitions'),
+            score: doc.get('score')))
         .toList();
+  }
+
+  Future<Game> getGame(String gameId) async {
+    Game result = Game(age: 0, tipe: '', title: '', description: '');
+    DocumentSnapshot qShot =
+        await FirebaseFirestore.instance.collection('game').doc(gameId).get();
+    Map<String, dynamic> data = qShot.data();
+    if (qShot.exists) {
+      result = Game(
+          age: data['age'],
+          tipe: data['title'],
+          title: data['title'],
+          description: data['description']);
+    }
+
+    return result;
   }
 
   Future<int> getUserData() async {
@@ -125,7 +141,7 @@ class DatabaseService {
       return 0;
     }
 
-    if (qShot.data().isNotEmpty) {
+    if (qShot.get('age') != null) {
       return data['age'];
     }
 
@@ -143,9 +159,9 @@ class DatabaseService {
     return qShot.docs
         .map((doc) => Game(
               uid: doc.id,
-              title: doc.data()['title'],
-              description: doc.data()['description'],
-              age: doc.data()['age'],
+              title: doc.get('title'),
+              description: doc.get('description'),
+              age: doc.get('age'),
             ))
         .toList();
   }
