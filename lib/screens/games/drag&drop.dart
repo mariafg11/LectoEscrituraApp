@@ -6,6 +6,7 @@ import 'package:LectoEscrituraApp/shared/emoji.dart';
 import 'package:LectoEscrituraApp/shared/help.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 
 class DragnDropGame extends StatefulWidget {
@@ -76,7 +77,8 @@ class _DragnDropGameState extends State<DragnDropGame> {
 
   Widget build(BuildContext context) {
     final String gameId = ModalRoute.of(context).settings.arguments as String;
-
+    FlutterTts flutterTts = FlutterTts();
+    flutterTts.setLanguage('ES-es');
     return Scaffold(
       appBar: AppBar(
         title: Text('Puntos ${score.length}/6'),
@@ -123,7 +125,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
                   ),
                 ),
                 onDragStarted: () {
-                  //audioPlayer.play('$emoji.mp3');
+                  flutterTts.speak(emoji);
                 },
                 feedback: Text(
                   '$emoji',
