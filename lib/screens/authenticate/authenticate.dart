@@ -22,7 +22,6 @@ class _AuthenticateState extends State<Authenticate> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.red[400],
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Column(

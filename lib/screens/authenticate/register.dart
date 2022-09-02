@@ -40,7 +40,6 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             appBar: AppBar(
               title: Text('Registrate'),
-              backgroundColor: Colors.red[400],
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

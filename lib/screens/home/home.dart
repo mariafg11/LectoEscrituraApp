@@ -25,7 +25,6 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("bienvenido"),
-        backgroundColor: Colors.red[400],
       ),
       drawer: Drawer(
         child: ListView(

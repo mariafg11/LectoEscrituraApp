@@ -47,7 +47,6 @@ class _ParentsAreaState extends State<ParentsArea> {
           return Scaffold(
               appBar: AppBar(
                 title: Text("Area de Padres"),
-                backgroundColor: Colors.red[400],
               ),
               body: Column(children: [
                 //Initialize the chart widget

@@ -15,7 +15,6 @@ class _AcSettingsState extends State<AcSettings> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Configuración'),
-        backgroundColor: Colors.red[400],
       ),
       body: Container(
         child: Column(

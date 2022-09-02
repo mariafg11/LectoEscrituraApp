@@ -20,10 +20,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var u = UserCustom();
+    //final ThemeData theme = Theme.of(context);
     return StreamProvider<UserCustom>.value(
       initialData: u,
       value: AuthService().user,
       child: MaterialApp(
+        theme: ThemeData.from(
+            colorScheme: ColorScheme(
+          onSecondary: Color.fromARGB(255, 245, 226, 225),
+          background: Color.fromARGB(255, 245, 226, 225),
+          brightness: Brightness.light,
+          secondary: Colors.red[400],
+          surface: Colors.white,
+          error: Colors.redAccent,
+          onError: Colors.white,
+          onPrimary: Colors.white,
+          onBackground: Colors.red[400],
+          primary: Colors.red[400],
+          onSurface: Colors.red[400],
+        )),
         routes: {
           '/home': (context) => Home(),
           '/drag&drop': (context) => DragnDropGame(),

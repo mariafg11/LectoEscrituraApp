@@ -82,7 +82,6 @@ class _DragnDropGameState extends State<DragnDropGame> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Puntos ${score.length}/6'),
-        backgroundColor: Colors.red[400],
         actions: [
           IconButton(
               onPressed: () {
@@ -99,7 +98,6 @@ class _DragnDropGameState extends State<DragnDropGame> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),
-        backgroundColor: Colors.red[400],
         onPressed: () {
           setState(() {
             score.clear();

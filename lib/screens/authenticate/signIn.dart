@@ -40,7 +40,6 @@ class _SignInState extends State<SignIn> {
         : Scaffold(
             appBar: AppBar(
               title: Text('Inicia sesión'),
-              backgroundColor: Colors.red[400],
             ),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

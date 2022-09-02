@@ -49,7 +49,6 @@ class _GameChartsState extends State<GameCharts> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Area de Padres"),
-          backgroundColor: Colors.red[400],
         ),
         body: Column(children: [
           //Initialize the chart widget

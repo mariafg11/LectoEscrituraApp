@@ -164,7 +164,6 @@ class _TableVocalsState extends State<TableVocals> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Puntos  $score/5'),
-          backgroundColor: Colors.red[400],
           actions: [
             IconButton(
                 onPressed: () {
@@ -181,7 +180,6 @@ class _TableVocalsState extends State<TableVocals> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.refresh),
-          backgroundColor: Colors.red[400],
           onPressed: () {
             setState(() {
               // score.clear();
