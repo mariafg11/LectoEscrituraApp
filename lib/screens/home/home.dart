@@ -1,5 +1,6 @@
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
+import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
 import 'package:LectoEscrituraApp/screens/games/tableVocals.dart';
 import 'package:LectoEscrituraApp/screens/home/acSettings.dart';
@@ -13,25 +14,64 @@ import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   final List<Game> games;
+  //final UserData userData;
 
-  const Home({Key key, this.games}) : super(key: key);
+  const Home({
+    Key key,
+    this.games,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
     final user = Provider.of<UserCustom>(context);
     var height = MediaQuery.of(context).size.height;
+    DatabaseService db = DatabaseService(uid: user.uid);
+    String name = '';
+    UserData data =
+        UserData(uid: user.uid, age: 0, name: '', image: 'assets/avatar1.png');
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("bienvenido"),
+        title: Text("Bienvenido "),
+        actions: [
+          FutureBuilder(
+              future: db.getUserData(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Something went wrong");
+                }
+
+                if (snapshot.hasData && snapshot.data.name == null) {
+                  return Text("Document does not exist");
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  data = snapshot.data;
+                  name = data.name.split('@')[0];
+                }
+
+                return Row(children: [
+                  Text(
+                    name,
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                      onPressed: (() => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Loading()))),
+                      child: Image(image: AssetImage(data.image))),
+                ]);
+              }),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(color: Colors.red[400]),
+                decoration: BoxDecoration(color: Colors.blueAccent[400]),
                 child: Text(
                   'Bienvenido',
                   style: TextStyle(color: Colors.white, fontSize: 24),

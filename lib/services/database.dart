@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/nGames.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
+import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
@@ -136,7 +137,7 @@ class DatabaseService {
     return result;
   }
 
-  Future<int> getUserData() async {
+  Future<int> getUserDataAge() async {
     DocumentSnapshot qShot =
         await FirebaseFirestore.instance.collection('userData').doc(uid).get();
     Map<String, dynamic> data = qShot.data();
@@ -151,8 +152,35 @@ class DatabaseService {
     return 0;
   }
 
+  Future<UserData> getUserData() async {
+    UserData result = UserData(
+      uid: uid,
+      age: 0,
+      name: 'fallo',
+      image: 'avatar1',
+    );
+    DocumentSnapshot qShot =
+        await FirebaseFirestore.instance.collection('userData').doc(uid).get();
+    Map<String, dynamic> data = qShot.data();
+    if (!qShot.exists) {
+      return result;
+    }
+
+    if (qShot.get('name') != null) {
+      result = UserData(
+        uid: data['uid'],
+        age: data['age'],
+        name: data['name'],
+        image: data['image'],
+      );
+      return result;
+    }
+
+    return result;
+  }
+
   Future<List<Game>> getGameList() async {
-    int userAge = await getUserData();
+    int userAge = await getUserDataAge();
 
     QuerySnapshot qShot = await FirebaseFirestore.instance
         .collection('game')
