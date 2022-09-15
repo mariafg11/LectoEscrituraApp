@@ -20,11 +20,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var u = UserCustom();
-    //final ThemeData theme = Theme.of(context);
+
     return StreamProvider<UserCustom>.value(
       initialData: u,
       value: AuthService().user,
       child: MaterialApp(
+        darkTheme: ThemeData.from(colorScheme: const ColorScheme.dark()),
         theme: ThemeData.from(
             colorScheme: ColorScheme(
           onSecondary: Color.fromARGB(255, 245, 226, 225),

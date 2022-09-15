@@ -65,7 +65,8 @@ class DatabaseService {
 
   Future updateProgress(
     String gameId,
-    int score,
+    int rightAnwers,
+    int wrongAnwers,
   ) async {
     QuerySnapshot qShot = await progressCollection
         .where('gameId', isEqualTo: gameId)
@@ -75,21 +76,23 @@ class DatabaseService {
       QueryDocumentSnapshot doc = qShot.docs.first;
       log(doc.data.toString());
 
-      int rep = doc.get('repetitions') + 1;
-      List sc = doc.get('score');
-      sc.add(score);
+      List wrong = doc.get('wrong');
+      List right = doc.get('right');
+      right.add(rightAnwers);
+      wrong.add(wrongAnwers);
+
       return await progressCollection.doc(doc.id).set({
         'userId': uid,
         'gameId': gameId,
-        'score': sc,
-        'repetitions': rep,
+        'right': right,
+        'wrong': wrong,
       });
     } else {
       return await progressCollection.doc(uuid.v1()).set({
         'userId': uid,
         'gameId': gameId,
-        'score': score,
-        'repetitions': 1,
+        'right': rightAnwers,
+        'wrong': wrongAnwers,
       });
     }
   }
@@ -112,8 +115,8 @@ class DatabaseService {
             uid: doc.id,
             gameId: doc.get('gameId'),
             userId: uid,
-            repetitions: doc.get('repetitions'),
-            score: doc.get('score')))
+            wrong: doc.get('wrong'),
+            right: doc.get('right')))
         .toList();
   }
 

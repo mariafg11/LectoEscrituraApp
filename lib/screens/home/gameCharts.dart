@@ -31,8 +31,8 @@ class _GameChartsState extends State<GameCharts> {
 
     for (var item in p) {
       List<_Data> l = [];
-      for (var it in item.score) {
-        _Data d = _Data(index: (i + 1), score: item.score.elementAt(i));
+      for (var it in item.wrong) {
+        _Data d = _Data(index: (i + 1), wrong: item.wrong.elementAt(i));
         l.add(d);
         i++;
       }
@@ -53,12 +53,13 @@ class _GameChartsState extends State<GameCharts> {
         body: Column(children: [
           //Initialize the chart widget
           SfCartesianChart(
-            title: ChartTitle(text: 'Progreso de ' + widget.games.first.title),
+            title: ChartTitle(
+                text: 'Errores cometidos en ' + widget.games.first.title),
             series: <ChartSeries<_Data, int>>[
               ColumnSeries(
                   dataSource: list.first,
                   xValueMapper: (_Data p, _) => p.index,
-                  yValueMapper: (_Data p, _) => p.score,
+                  yValueMapper: (_Data p, _) => p.wrong,
                   name: 'Progreso')
             ],
           ),
@@ -68,6 +69,6 @@ class _GameChartsState extends State<GameCharts> {
 
 class _Data {
   final int index;
-  final int score;
-  _Data({this.index, this.score});
+  final int wrong;
+  _Data({this.index, this.wrong});
 }

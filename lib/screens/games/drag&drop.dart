@@ -24,6 +24,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
   int seed = 0;
   bool finalScore = false;
   AudioCache audioPlayer = AudioCache();
+  int wrong = 0;
 
   Widget _buildDragTarget(emoji) {
     final user = Provider.of<UserCustom>(context);
@@ -54,7 +55,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onAccept: (data) {
         setState(() {
           if (score.length == 5) {
-            db.updateProgress(gameId, score.length + 1);
+            db.updateProgress(gameId, score.length + 1, wrong);
           }
           // audioPlayer.setUrl('assets/correcto.mp3');
           score[emoji] = true;
@@ -62,6 +63,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
         });
       },
       onLeave: (data) {
+        wrong++;
         //db.updateProgress(gameId, score.length);
 
         // audioPlayer.play('wrong.mp3');

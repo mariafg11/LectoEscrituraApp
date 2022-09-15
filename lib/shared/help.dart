@@ -44,20 +44,37 @@ class Help extends StatelessWidget {
                       height: 600.0,
                       child: Column(
                         children: [
-                          Text('Ayuda'),
                           SizedBox(height: 20.0),
-                          Text(game.title),
+
+                          Text(
+                            'Ayuda',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                           SizedBox(height: 20.0),
-                          Text(game.description),
+                          //Text(game.title),
+
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              game.description,
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ),
                           SizedBox(height: 20.0),
                           Image(
                             image: AssetImage('assets/' + game.title + '.gif'),
                           ),
+                          SizedBox(height: 20.0),
+
                           IconButton(
                               onPressed: () {
                                 flutterTts.speak(game.description);
                               },
-                              icon: Icon(Icons.volume_up)),
+                              icon: Icon(
+                                Icons.volume_up,
+                                size: 50.0,
+                              )),
+                          SizedBox(height: 10.0),
                         ],
                       ),
                     ),

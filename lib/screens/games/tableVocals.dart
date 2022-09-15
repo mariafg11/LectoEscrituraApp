@@ -22,7 +22,9 @@ class _TableVocalsState extends State<TableVocals> {
   Map _options = new Map();
   AudioCache audioPlayer = AudioCache();
 
-  int score = 0;
+  int right = 0;
+  int wrong = 0;
+
   List<String> _grid = new List.empty();
   List<int> selectedIndexList = [];
   List<String> _emojis = new List.empty();
@@ -37,8 +39,9 @@ class _TableVocalsState extends State<TableVocals> {
     _options = peaker.randomPeaker(6);
     _emojis = _options.values.toList();
     _grid = _createlist();
-
-    score = 0;
+    //reset the sacore counter
+    wrong = 0;
+    right = 0;
   }
 
   List<String> _createlist() {
@@ -108,16 +111,18 @@ class _TableVocalsState extends State<TableVocals> {
         case 1: //A
 
           if (word.endsWith('a')) {
-            score++;
+            right++;
           } else {
+            wrong++;
             error = error + '$word no termina en A ';
             result = false;
           }
           break;
         case 2: //E
           if (word.endsWith('e')) {
-            score++;
+            right++;
           } else {
+            wrong++;
             error = error + '$word no termina en E ';
             result = false;
           }
@@ -125,24 +130,27 @@ class _TableVocalsState extends State<TableVocals> {
         case 3:
           //I
           if (word.endsWith('i')) {
-            score++;
+            right++;
           } else {
+            wrong++;
             error = error + '$word no termina en I ';
             result = false;
           }
           break;
         case 4: //O
           if (word.endsWith('o')) {
-            score++;
+            right++;
           } else {
+            wrong++;
             error = error + '$word no termina en O ';
             result = false;
           }
           break;
         case 5: //U
           if (word.endsWith('u')) {
-            score++;
+            right++;
           } else {
+            wrong++;
             error = error + '$word no termina en U ';
             result = false;
           }
@@ -163,7 +171,7 @@ class _TableVocalsState extends State<TableVocals> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Puntos  $score/5'),
+          title: Text('Puntos  $right/5'),
           actions: [
             IconButton(
                 onPressed: () {
@@ -189,7 +197,8 @@ class _TableVocalsState extends State<TableVocals> {
               _emojis = _options.values.toList();
               _grid = _createlist();
               error = '';
-              score = 0;
+              right = 0;
+              wrong = 0;
             });
           },
         ),
@@ -245,13 +254,13 @@ class _TableVocalsState extends State<TableVocals> {
                   if (_twoInLine(selectedIndexList)) {
                     error = ('Solo un cuadrado por fila');
                   } else if (_isCorrect()) {
-                    score = 5;
+                    right = 5;
                     audioPlayer.play('correcto.mp3');
                     error = '';
+                    db.updateProgress(gameId, right, wrong);
                   } else {
-                    score = 5 - score;
+                    right = 5 - wrong;
                   }
-                  db.updateProgress(gameId, score);
                 });
               },
               icon: Icon(Icons.check_circle),
