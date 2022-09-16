@@ -11,7 +11,7 @@ class Help extends StatelessWidget {
   final String gameId;
   const Help({Key key, this.gameId}) : super(key: key);
 //Pasar toda la info de game id from db intentar que alguien lo lea
-  @override
+
   Future<Game> _gamefromDb(BuildContext context) async {
     final user = Provider.of<UserCustom>(context);
     DatabaseService db = DatabaseService(uid: user.uid);
@@ -37,7 +37,7 @@ class Help extends StatelessWidget {
             return Dialog(
               insetPadding: EdgeInsets.all(10),
               child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.center,
                   children: [
                     Container(

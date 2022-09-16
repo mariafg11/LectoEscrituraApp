@@ -1,7 +1,5 @@
-import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -71,19 +69,17 @@ class _SignInState extends State<SignIn> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
-                        child: RaisedButton.icon(
+                        child: IconButton(
                           icon: Icon(Icons.arrow_back),
-                          color: Colors.blue[200],
+                          //color: Colors.blue[200],
                           onPressed: () => _controller.previousPage(),
-                          label: Text(''),
                         ),
                       ),
                       Flexible(
-                        child: RaisedButton.icon(
+                        child: IconButton(
                           onPressed: () => _controller.nextPage(),
-                          color: Colors.blue[200],
+                          //color: Colors.blue[200],
                           icon: Icon(Icons.arrow_forward),
-                          label: Text(''),
                         ),
                       ),
                     ],
@@ -97,12 +93,11 @@ class _SignInState extends State<SignIn> {
                     },
                   ),
                   SizedBox(height: 50.0),
-                  RaisedButton(
-                      color: Colors.blue[200],
-                      child: Text(
-                        "Inicia Sesión: ",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                  ElevatedButton(
+                      //color: Colors.blue[200],
+                      child: Text("Inicia Sesión: ",
+                          style: TextStyle() //color: Colors.white),
+                          ),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
@@ -117,10 +112,9 @@ class _SignInState extends State<SignIn> {
                         }
                       }),
                   SizedBox(height: 20.0),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.red, fontSize: 14.0),
-                  ),
+                  Text(error,
+                      style: TextStyle() //color: Colors.red, fontSize: 14.0),
+                      ),
                 ]),
               ),
             ),

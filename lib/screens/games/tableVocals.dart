@@ -29,7 +29,7 @@ class _TableVocalsState extends State<TableVocals> {
   List<int> selectedIndexList = [];
   List<String> _emojis = new List.empty();
   List<String> _vocals = <String>['A', 'E', 'I', 'O', 'U'];
-  rPeacker peaker = new rPeacker();
+  Rpeacker peaker = new Rpeacker();
   Color colorCard = Colors.orange[50];
   String error = '';
   int seed = 0;
@@ -68,7 +68,7 @@ class _TableVocalsState extends State<TableVocals> {
     int repeat5 = 0;
 
     bool result = false;
-    int row = 1;
+
     for (var i = 0; i < selectedIndexList.length; i++) {
       int line = (selectedIndexList[i] ~/ 6);
       switch (line) {
@@ -264,13 +264,11 @@ class _TableVocalsState extends State<TableVocals> {
                 });
               },
               icon: Icon(Icons.check_circle),
-              color: Colors.green,
+              //color: Colors.green,
               iconSize: 40,
             ),
-            Text(
-              error,
-              style: TextStyle(color: Colors.red, fontSize: 14.0),
-            ),
+            Text(error, style: TextStyle() //color: Colors.red, fontSize: 14.0),
+                ),
           ],
         ));
   }

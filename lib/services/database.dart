@@ -36,7 +36,7 @@ class DatabaseService {
     List<Progress> progressList = await getProgress();
     for (var item in progressList) {
       DocumentSnapshot qShot = await gameCollection.doc(item.gameId).get();
-      var gameDoc = qShot.data();
+
       Game gamesCasted = Game(
         uid: item.gameId,
         title: qShot.get('title'),

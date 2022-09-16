@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'dart:ui';
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,6 @@ class GameCharts extends StatefulWidget {
 class _GameChartsState extends State<GameCharts> {
   List<List<_Data>> createList() {
     List<Progress> p = [];
-    int i = 0;
 
     for (var item in widget.games) {
       for (var it in widget.progress) {
@@ -31,10 +28,9 @@ class _GameChartsState extends State<GameCharts> {
 
     for (var item in p) {
       List<_Data> l = [];
-      for (var it in item.wrong) {
+      for (var i = 0; i < item.wrong.length; i++) {
         _Data d = _Data(index: (i + 1), wrong: item.wrong.elementAt(i));
         l.add(d);
-        i++;
       }
 
       result.add(l);

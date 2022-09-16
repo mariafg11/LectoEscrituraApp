@@ -1,7 +1,6 @@
 import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
 import 'package:LectoEscrituraApp/screens/games/tablevocals.dart';
 import 'package:LectoEscrituraApp/screens/home/home.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,19 +26,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         darkTheme: ThemeData.from(colorScheme: const ColorScheme.dark()),
         theme: ThemeData.from(
-            colorScheme: ColorScheme(
-          onSecondary: Colors.blue[50],
-          background: Colors.blue[50],
-          brightness: Brightness.light,
-          secondary: Colors.blue[400],
-          surface: Colors.white,
-          error: Colors.blueAccent,
-          onError: Colors.white,
-          onPrimary: Colors.white,
-          onBackground: Colors.blue[400],
-          primary: Colors.blue[400],
-          onSurface: Colors.blue[400],
-        )),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.orangeAccent,
+              primary: Colors.orange[400],
+            ),
+            textTheme: TextTheme()),
         routes: {
           '/home': (context) => Home(),
           '/drag&drop': (context) => DragnDropGame(),

@@ -1,14 +1,11 @@
 import 'package:LectoEscrituraApp/models/game.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/models/userData.dart';
-import 'package:LectoEscrituraApp/screens/games/drag&drop.dart';
-import 'package:LectoEscrituraApp/screens/games/tableVocals.dart';
 import 'package:LectoEscrituraApp/screens/home/acSettings.dart';
 import 'package:LectoEscrituraApp/screens/home/parentsArea.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +22,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
     final user = Provider.of<UserCustom>(context);
-    var height = MediaQuery.of(context).size.height;
+    //var height = MediaQuery.of(context).size.height;
     DatabaseService db = DatabaseService(uid: user.uid);
     String name = '';
     UserData data =
@@ -55,7 +52,7 @@ class Home extends StatelessWidget {
                 return Row(children: [
                   Text(
                     name,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: TextStyle(), //color: Colors.white, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
                   ElevatedButton(
@@ -71,7 +68,7 @@ class Home extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blueAccent[400]),
+                decoration: BoxDecoration(color: Colors.orange[400]),
                 child: Text(
                   'Bienvenido',
                   style: TextStyle(color: Colors.white, fontSize: 24),

@@ -1,9 +1,7 @@
-import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
-import 'package:flutter/src/rendering/box.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -71,17 +69,17 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
-                        child: RaisedButton.icon(
+                        child: ElevatedButton.icon(
                           icon: Icon(Icons.arrow_back),
-                          color: Colors.blue[200],
+                          //color: Colors.blue[200],
                           onPressed: () => _controller.previousPage(),
                           label: Text(''),
                         ),
                       ),
                       Flexible(
-                        child: RaisedButton.icon(
+                        child: ElevatedButton.icon(
                           onPressed: () => _controller.nextPage(),
-                          color: Colors.blue[200],
+                          //color: Colors.blue[200],
                           icon: Icon(Icons.arrow_forward),
                           label: Text(''),
                         ),
@@ -107,12 +105,11 @@ class _RegisterState extends State<Register> {
                     divisions: 10,
                     onChanged: (val) => setState(() => age = val.round()),
                   ),
-                  RaisedButton(
-                      color: Colors.blue[200],
-                      child: Text(
-                        "Register ",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                  ElevatedButton(
+                      //color: Colors.blue[200],
+                      child: Text("Register ",
+                          style: TextStyle(//color: Colors.white),
+                              )),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);

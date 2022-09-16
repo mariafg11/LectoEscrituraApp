@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
+
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
 import 'package:LectoEscrituraApp/shared/help.dart';
@@ -17,10 +18,9 @@ class DragnDropGame extends StatefulWidget {
 }
 
 class _DragnDropGameState extends State<DragnDropGame> {
-  @override
   final Map<String, bool> score = {};
   Map _options = new Map();
-  rPeacker peaker = new rPeacker();
+  Rpeacker peaker = new Rpeacker();
   int seed = 0;
   bool finalScore = false;
   AudioCache audioPlayer = AudioCache();
@@ -34,7 +34,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
       builder: (BuildContext context, List<String> incoming, List rejected) {
         if (score[emoji] == true) {
           return Container(
-            color: Colors.transparent,
+            //color: Colors.transparent,
             child: Text(
               'Correcto',
               style: TextStyle(fontSize: 35),
@@ -131,7 +131,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
                   '$emoji',
                   style: TextStyle(
                       fontSize: 35,
-                      color: Colors.black,
+                      //color: Colors.black,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none),

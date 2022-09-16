@@ -1,5 +1,4 @@
 import 'package:LectoEscrituraApp/models/game.dart';
-import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:LectoEscrituraApp/screens/home/home.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';

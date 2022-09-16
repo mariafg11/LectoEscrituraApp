@@ -13,7 +13,6 @@ class Authenticate extends StatefulWidget {
 
 //devuelve una pagina u otra dependiendo si hay un usuario conectado
 class _AuthenticateState extends State<Authenticate> {
-  @override
   bool loading = false;
 
   @override
@@ -31,16 +30,20 @@ class _AuthenticateState extends State<Authenticate> {
                     image: AssetImage('assets/test.png'),
                     width: 500.0,
                   ),
-                  FlatButton.icon(
+                  TextButton.icon(
                     icon: Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                       size: 40.0,
                     ),
-                    color: Colors.green[300],
-                    height: 70.0,
-                    shape: StadiumBorder(),
-                    minWidth: 270.0,
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.green[300],
+                      minimumSize: Size(275.0, 70.0),
+                    ),
+                    label: Text(
+                      'Jugar ',
+                      style: TextStyle(fontSize: 40.0, color: Colors.white),
+                    ),
                     onPressed: () {
                       if (user == null) {
                         loading = true;
@@ -55,31 +58,28 @@ class _AuthenticateState extends State<Authenticate> {
                         );
                       }
                     },
-                    label: Text(
-                      'Jugar',
-                      style: TextStyle(color: Colors.white, fontSize: 40.0),
-                    ),
                   ),
                   SizedBox(height: 30.0),
-                  FlatButton.icon(
+                  TextButton.icon(
                     icon: Icon(
                       Icons.person,
                       color: Colors.white,
                       size: 40.0,
                     ),
-                    color: Colors.orange[300],
-                    height: 70.0,
-                    shape: StadiumBorder(),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange[300],
+                      minimumSize: Size(275.0, 70.0),
+                    ),
+                    label: Text(
+                      'Registrarse',
+                      style: TextStyle(fontSize: 40.0, color: Colors.white),
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Register()),
                       );
                     },
-                    label: Text(
-                      'Registrarse',
-                      style: TextStyle(color: Colors.white, fontSize: 40.0),
-                    ),
                   ),
                 ],
               ),

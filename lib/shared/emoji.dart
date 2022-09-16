@@ -6,7 +6,7 @@ class Emoji extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      //color: Colors.transparent,
       child: Container(
         alignment: Alignment.center,
         height: 80,

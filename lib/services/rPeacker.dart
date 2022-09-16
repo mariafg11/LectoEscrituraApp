@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class rPeacker {
+class Rpeacker {
   Map options = {
     'vestido': '👗',
     'zapato': '👟',
@@ -25,7 +25,7 @@ class rPeacker {
     'sandía': '🍉',
   };
 
-  rPeacker() {
+  Rpeacker() {
     this.options = options;
   }
 

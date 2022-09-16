@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:LectoEscrituraApp/models/nGames.dart';
 import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
@@ -21,7 +19,6 @@ class _ParentsAreaState extends State<ParentsArea> {
   List<Progress> progress;
   Future<List<NGames>> nGames;
   List<NGames> data = [];
-  @override
   Future<List<NGames>> waitFromBd() async {
     final user = Provider.of<UserCustom>(context);
     DatabaseService db = DatabaseService(uid: user.uid);
