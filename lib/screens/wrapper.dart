@@ -9,7 +9,8 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserCustom>(context);
-    if (user != null) {
+    final value = user?.uid;
+    if (user != null && value != null) {
       if (Navigator.canPop(context)) {
         Navigator.maybePop(
             context, MaterialPageRoute(builder: (context) => Loading()));

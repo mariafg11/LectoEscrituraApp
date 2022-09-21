@@ -119,18 +119,24 @@ class Home extends StatelessWidget {
                         return Card(
                           child: InkWell(
                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
+                                SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                ),
                                 Image(
                                     height: 125,
                                     width: 125,
                                     image:
                                         AssetImage('assets/' + page + '.gif')),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    games.elementAt(index).description,
-                                    textAlign: TextAlign.center,
-                                  ),
+                                SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                Text(
+                                  games.elementAt(index).description,
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
