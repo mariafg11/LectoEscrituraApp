@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
+import 'package:LectoEscrituraApp/shared/answersDialog.dart';
 import 'package:LectoEscrituraApp/shared/help.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -103,60 +104,66 @@ class _TableVocalsState extends State<TableVocals> {
     int i = 0;
     bool result = true;
     selectedIndexList.sort();
-    for (int item in selectedIndexList) {
-      int mod = item % 6;
-      String word = _options.keys.elementAt(i);
-      i++;
-      switch (mod) {
-        case 1: //A
+    if (selectedIndexList.isEmpty) {
+      error = 'rellena las casillas';
+      return result = false;
+    } else {
+      for (int item in selectedIndexList) {
+        int mod = item % 6;
+        String word = _options.keys.elementAt(i);
+        i++;
+        switch (mod) {
+          case 1: //A
 
-          if (word.endsWith('a')) {
-            right++;
-          } else {
-            wrong++;
-            error = error + '$word no termina en A ';
-            result = false;
-          }
-          break;
-        case 2: //E
-          if (word.endsWith('e')) {
-            right++;
-          } else {
-            wrong++;
-            error = error + '$word no termina en E ';
-            result = false;
-          }
-          break;
-        case 3:
-          //I
-          if (word.endsWith('i')) {
-            right++;
-          } else {
-            wrong++;
-            error = error + '$word no termina en I ';
-            result = false;
-          }
-          break;
-        case 4: //O
-          if (word.endsWith('o')) {
-            right++;
-          } else {
-            wrong++;
-            error = error + '$word no termina en O ';
-            result = false;
-          }
-          break;
-        case 5: //U
-          if (word.endsWith('u')) {
-            right++;
-          } else {
-            wrong++;
-            error = error + '$word no termina en U ';
-            result = false;
-          }
-          break;
-        default:
-          error = error + 'Termina en consonante ';
+            if (word.endsWith('a')) {
+              right++;
+            } else {
+              wrong++;
+              error = error + '$word no termina en A \n';
+              result = false;
+            }
+            break;
+          case 2: //E
+            if (word.endsWith('e')) {
+              right++;
+            } else {
+              wrong++;
+              error = error + '$word no termina en E \n';
+              result = false;
+            }
+            break;
+          case 3:
+            //I
+            if (word.endsWith('i')) {
+              right++;
+            } else {
+              wrong++;
+              error = error + '$word no termina en I \n';
+              result = false;
+            }
+            break;
+          case 4: //O
+            if (word.endsWith('o')) {
+              right++;
+            } else {
+              wrong++;
+              error = error + '$word no termina en O \n';
+              result = false;
+            }
+            break;
+          case 5: //U
+            if (word.endsWith('u')) {
+              right++;
+            } else {
+              wrong++;
+              error = error + '$word no termina en U \n ';
+
+              result = false;
+            }
+            break;
+          default:
+            error = error + 'Termina en consonante ';
+        }
       }
     }
     log(error + selectedIndexList.toString());
@@ -238,7 +245,11 @@ class _TableVocalsState extends State<TableVocals> {
                           if (!selectedIndexList.contains(index) &&
                               index > 6 &&
                               index % 6 != 0) {
-                            selectedIndexList.add(index);
+                            if (_twoInLine(selectedIndexList)) {
+                              selectedIndexList.remove(index);
+                            } else {
+                              selectedIndexList.add(index);
+                            }
                           } else {
                             selectedIndexList.remove(index);
                           }
@@ -262,13 +273,45 @@ class _TableVocalsState extends State<TableVocals> {
                     right = 5 - wrong;
                   }
                 });
+                if (right == 5) {
+                  audioPlayer.play('applause.mp3');
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AnswersDialog(
+                          right: right,
+                        );
+                      });
+                } else {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: 200.0,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 20.0),
+                                      Text(error,
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 14.0)),
+                                    ],
+                                  ),
+                                )
+                              ]),
+                        );
+                      });
+                }
               },
               icon: Icon(Icons.check_circle),
               //color: Colors.green,
               iconSize: 40,
             ),
-            Text(error, style: TextStyle() //color: Colors.red, fontSize: 14.0),
-                ),
           ],
         ));
   }

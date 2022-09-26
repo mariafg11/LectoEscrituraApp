@@ -3,6 +3,7 @@ import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 
 import 'package:LectoEscrituraApp/services/rPeacker.dart';
+import 'package:LectoEscrituraApp/shared/answersDialog.dart';
 import 'package:LectoEscrituraApp/shared/emoji.dart';
 import 'package:LectoEscrituraApp/shared/help.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -54,13 +55,22 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
-          if (score.length == 5) {
+          if (score.length == 6) {
             db.updateProgress(gameId, score.length + 1, wrong);
           }
-          // audioPlayer.setUrl('assets/correcto.mp3');
           score[emoji] = true;
           audioPlayer.play('correcto.mp3');
         });
+        if (score.length == 6) {
+          audioPlayer.play('applause.mp3');
+          return showDialog(
+              context: context,
+              builder: (context) {
+                return AnswersDialog(
+                  right: score.length + 1,
+                );
+              });
+        }
       },
       onLeave: (data) {
         wrong++;
