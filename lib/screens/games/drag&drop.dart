@@ -141,7 +141,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
                   '$emoji',
                   style: TextStyle(
                       fontSize: 35,
-                      //color: Colors.black,
+                      color: Colors.black,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none),

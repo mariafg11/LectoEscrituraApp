@@ -3,6 +3,7 @@ import 'package:LectoEscrituraApp/models/userCustom.dart';
 import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:LectoEscrituraApp/screens/home/acSettings.dart';
 import 'package:LectoEscrituraApp/screens/home/parentsArea.dart';
+import 'package:LectoEscrituraApp/screens/home/rewardPage.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
@@ -56,8 +57,10 @@ class Home extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   ElevatedButton(
-                      onPressed: (() => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Loading()))),
+                      onPressed: (() => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RewardPage()))),
                       child: Image(image: AssetImage(data.image))),
                 ]);
               }),
