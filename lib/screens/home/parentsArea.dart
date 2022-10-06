@@ -20,7 +20,7 @@ class _ParentsAreaState extends State<ParentsArea> {
   Future<List<NGames>> nGames;
   List<NGames> data = [];
   Future<List<NGames>> waitFromBd() async {
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
     DatabaseService db = DatabaseService(uid: user.uid);
     progress = await db.getProgress();
 

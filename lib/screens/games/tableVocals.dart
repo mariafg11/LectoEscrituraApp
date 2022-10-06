@@ -172,7 +172,8 @@ class _TableVocalsState extends State<TableVocals> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
+
     DatabaseService db = DatabaseService(uid: user.uid);
     final String gameId = ModalRoute.of(context).settings.arguments as String;
 
@@ -274,12 +275,24 @@ class _TableVocalsState extends State<TableVocals> {
                   }
                 });
                 if (right == 5) {
+                  int result = right;
                   audioPlayer.play('applause.mp3');
+                  setState(() {
+                    // score.clear();
+                    selectedIndexList = [];
+                    seed++;
+                    _options = peaker.randomPeaker(6);
+                    _emojis = _options.values.toList();
+                    _grid = _createlist();
+                    error = '';
+                    right = 0;
+                    wrong = 0;
+                  });
                   return showDialog(
                       context: context,
                       builder: (context) {
                         return AnswersDialog(
-                          right: right,
+                          right: result,
                         );
                       });
                 } else {

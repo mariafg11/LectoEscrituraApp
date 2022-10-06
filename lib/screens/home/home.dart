@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
     //var height = MediaQuery.of(context).size.height;
     DatabaseService db = DatabaseService(uid: user.uid);
     String name = '';

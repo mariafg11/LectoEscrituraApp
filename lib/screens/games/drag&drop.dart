@@ -28,7 +28,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
   int wrong = 0;
 
   Widget _buildDragTarget(emoji) {
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
     DatabaseService db = DatabaseService(uid: user.uid);
     final String gameId = ModalRoute.of(context).settings.arguments as String;
     return DragTarget<String>(
@@ -63,11 +63,18 @@ class _DragnDropGameState extends State<DragnDropGame> {
         });
         if (score.length == 6) {
           audioPlayer.play('applause.mp3');
+          int result = score.length;
+          setState(() {
+            score.clear();
+            seed++;
+            _options = peaker.randomPeaker(6);
+          });
+
           return showDialog(
               context: context,
               builder: (context) {
                 return AnswersDialog(
-                  right: score.length + 1,
+                  right: result + 1,
                 );
               });
         }

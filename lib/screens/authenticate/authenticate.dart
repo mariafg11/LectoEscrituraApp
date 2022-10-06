@@ -17,7 +17,8 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
+
     return loading
         ? Loading()
         : Scaffold(

@@ -13,7 +13,7 @@ class Help extends StatelessWidget {
 //Pasar toda la info de game id from db intentar que alguien lo lea
 
   Future<Game> _gamefromDb(BuildContext context) async {
-    final user = Provider.of<UserCustom>(context);
+    final user = Provider.of<UserCustom>(context, listen: false);
     DatabaseService db = DatabaseService(uid: user.uid);
     Game game = await db.getGame(gameId);
     return game;
