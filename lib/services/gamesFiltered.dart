@@ -25,10 +25,13 @@ class GamesFilter extends StatelessWidget {
 
         if (snapshot.connectionState == ConnectionState.done) {
           List<Game> data = snapshot.data;
-
-          return Home(
-            games: data,
-          );
+          if (data.length != null) {
+            return Home(
+              games: data,
+            );
+          } else {
+            return Loading();
+          }
         }
 
         return Loading();

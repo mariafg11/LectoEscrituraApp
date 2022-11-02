@@ -8,7 +8,7 @@ import 'package:LectoEscrituraApp/screens/authenticate/authenticate.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserCustom>(context, listen: false);
+    final user = Provider.of<UserCustom>(context, listen: true);
     final value = user?.uid;
     if (user != null && value != null) {
       if (Navigator.canPop(context)) {

@@ -6,6 +6,7 @@ import 'package:LectoEscrituraApp/screens/home/parentsArea.dart';
 import 'package:LectoEscrituraApp/screens/home/rewardPage.dart';
 import 'package:LectoEscrituraApp/services/auth.dart';
 import 'package:LectoEscrituraApp/services/database.dart';
+import 'package:LectoEscrituraApp/services/getUserData.dart';
 import 'package:LectoEscrituraApp/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +61,7 @@ class Home extends StatelessWidget {
                       onPressed: (() => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RewardPage()))),
+                              builder: (context) => GetUserData()))),
                       child: Image(image: AssetImage(data.image))),
                 ]);
               }),

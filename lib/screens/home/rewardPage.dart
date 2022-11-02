@@ -1,7 +1,9 @@
+import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:flutter/material.dart';
 
 class RewardPage extends StatefulWidget {
-  const RewardPage({Key key}) : super(key: key);
+  final UserData user;
+  const RewardPage({Key key, this.user}) : super(key: key);
 
   @override
   State<RewardPage> createState() => _RewardPageState();
@@ -28,8 +30,9 @@ class _RewardPageState extends State<RewardPage> {
                 builder: (context, candidateData, rejectedData) {
                   return Container(
                     child: Image(
-                      image: AssetImage(
-                          _pantsOn ? 'assets/test.png' : 'assets/chica.png'),
+                      image: AssetImage(_pantsOn
+                          ? 'assets/test.png'
+                          : 'assets/' + widget.user.image + '-cuerpo.png'),
                       width: 300,
                       height: 500,
                     ),
