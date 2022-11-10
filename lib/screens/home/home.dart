@@ -130,8 +130,8 @@ class Home extends StatelessWidget {
                                   width: 30,
                                 ),
                                 Image(
-                                    height: 125,
-                                    width: 125,
+                                    height: 150,
+                                    width: 150,
                                     image:
                                         AssetImage('assets/' + page + '.gif')),
                                 SizedBox(
