@@ -55,15 +55,13 @@ class _DragnDropGameState extends State<DragnDropGame> {
       onWillAccept: (data) => data == emoji,
       onAccept: (data) {
         setState(() {
-          if (score.length == 6) {
-            db.updateProgress(gameId, score.length + 1, wrong);
-          }
           score[emoji] = true;
           audioPlayer.play('correcto.mp3');
         });
         if (score.length == 6) {
           audioPlayer.play('applause.mp3');
           int result = score.length;
+          db.updateProgress(gameId, score.length + 1, wrong);
           setState(() {
             score.clear();
             seed++;
@@ -148,7 +146,7 @@ class _DragnDropGameState extends State<DragnDropGame> {
                   '$emoji',
                   style: TextStyle(
                       fontSize: 35,
-                      color: Colors.black,
+                      color: Colors.blue,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none),

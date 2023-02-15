@@ -1,15 +1,56 @@
+import 'package:LectoEscrituraApp/models/progress.dart';
 import 'package:LectoEscrituraApp/models/userData.dart';
 import 'package:flutter/material.dart';
 
 class RewardPage extends StatefulWidget {
   final UserData user;
-  const RewardPage({Key key, this.user}) : super(key: key);
+  final List<Progress> progress;
+
+  const RewardPage({Key key, this.user, this.progress}) : super(key: key);
 
   @override
   State<RewardPage> createState() => _RewardPageState();
 }
 
 class _RewardPageState extends State<RewardPage> {
+  List<String> images = [];
+  List<String> createClothList() {
+    List<String> images = [
+      'pantalon-1.png',
+      'camiseta-1.png',
+      'camiseta-2.png',
+      'pantalon-2.png',
+      'zapatos-1.png',
+      'zapatos-2.png',
+      'gorro-1.png',
+      'camiseta-3.png'
+    ];
+    List<String> clothing = [];
+    int i = 0;
+    List<Progress> progress = widget.progress;
+    for (var element in progress) {
+      if (element.right.length > 1) {
+        if (images[i].isNotEmpty) {
+          clothing.add(images[i]);
+          i++;
+        }
+      }
+      if (element.right.length >= 5) {
+        if (images[i].isNotEmpty) {
+          clothing.add(images[i]);
+          i++;
+        }
+      }
+      if (element.right.length >= 8) {
+        if (images[i].isNotEmpty) {
+          clothing.add(images[i]);
+          i++;
+        }
+      }
+    }
+    return clothing;
+  }
+
   String avatar = '';
   String top = '';
   String pant = '';
@@ -22,22 +63,14 @@ class _RewardPageState extends State<RewardPage> {
   bool _shoesOn = false;
   void initState() {
     super.initState();
-    avatar = 'assets/' + widget.user.image + '-cuerpo.png';
+    images = createClothList();
+    var name = widget.user.image.split('.');
+    avatar = name[0] + '-cuerpo.png';
   }
 
   Widget build(BuildContext context) {
     Map _options = new Map();
 
-    List<String> images = [
-      'pantalon-1.png',
-      'camiseta-1.png',
-      'camiseta-2.png',
-      'pantalon-2.png',
-      'zapatos-1.png',
-      'zapatos-2.png',
-      'gorro-1.png',
-      'camiseta-3.png'
-    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Viste a tu avatar'),

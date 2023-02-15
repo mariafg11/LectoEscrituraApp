@@ -54,15 +54,20 @@ class Home extends StatelessWidget {
                 return Row(children: [
                   Text(
                     name,
-                    style: TextStyle(), //color: Colors.white, fontSize: 24),
+                    style: TextStyle(
+                        fontSize: 24), //color: Colors.white, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
-                  ElevatedButton(
-                      onPressed: (() => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => GetUserData()))),
-                      child: Image(image: AssetImage(data.image))),
+                  Tooltip(
+                    message: 'Toca aquí para ver tus recompensas',
+                    child: ElevatedButton(
+                        onPressed: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    GetUserData(user: data)))),
+                        child: Image(image: AssetImage(data.image))),
+                  ),
                 ]);
               }),
         ],
@@ -123,21 +128,15 @@ class Home extends StatelessWidget {
                         return Card(
                           child: InkWell(
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                ),
+                                SizedBox(height: 25.0),
                                 Image(
-                                    height: 150,
-                                    width: 150,
+                                    fit: BoxFit.scaleDown,
+                                    height: 130,
+                                    width: 140,
                                     image:
                                         AssetImage('assets/' + page + '.gif')),
-                                SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                ),
+                                SizedBox(height: 25.0),
                                 Text(
                                   games.elementAt(index).description,
                                   textAlign: TextAlign.center,

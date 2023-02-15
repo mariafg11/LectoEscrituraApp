@@ -20,8 +20,6 @@ class _SignInState extends State<SignIn> {
     'assets/avatar2.png',
     'assets/avatar3.png',
     'assets/avatar4.png',
-    'assets/avatar5.png',
-    'assets/avatar6.png',
   ];
 
   final CarouselController _controller = CarouselController();
